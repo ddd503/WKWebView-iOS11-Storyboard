@@ -46,6 +46,7 @@ class ViewController: UIViewController {
         webView.addObserver(self, forKeyPath: "loading", options: .new, context: nil)
         webView.addObserver(self, forKeyPath: "canGoBack", options: .new, context: nil)
         webView.addObserver(self, forKeyPath: "canGoForward", options: .new, context: nil)
+        webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
     }
     
     // MARK: - Private Methods
@@ -93,7 +94,10 @@ class ViewController: UIViewController {
         case "canGoForward":
             // 進むアクションの可否が変更されるごとにボタンの活性非活性を入れ替える
             self.forwordButton.isEnabled = self.webView.canGoForward
-            
+        
+        case "URL":
+            // 現在いるURLを出力
+            print("現在のURL：\(String(describing: self.webView.url?.absoluteString))")
         default: break
             
         }
@@ -105,6 +109,7 @@ class ViewController: UIViewController {
         webView.removeObserver(self, forKeyPath: "loading")
         webView.removeObserver(self, forKeyPath: "canGoBack")
         webView.removeObserver(self, forKeyPath: "canGoForward")
+        webView.removeObserver(self, forKeyPath: "URL")
     }
     
     // MARK: - Action Methods
